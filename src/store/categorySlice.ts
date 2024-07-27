@@ -1,17 +1,19 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {Category} from '../types';
-import {createCategory, fetchCategory} from './categoryThunk';
+import {createCategory, fetchCategory, removeCategory} from './categoryThunk';
 
 export interface CategoryState {
   item: Category[]
   isCreating: boolean;
   isFetching: boolean;
+  deleteLoading: false | string;
 }
 
 export const initialState: CategoryState = {
   item: [],
   isCreating: false,
   isFetching: false,
+  deleteLoading: false,
 };
 
 export const categorySlice = createSlice({
@@ -36,11 +38,20 @@ export const categorySlice = createSlice({
       state.isFetching = false;
     });
 
+    builder.addCase(removeCategory.pending, (state,{meta: {arg: categoryId}}) => {
+      state.deleteLoading = categoryId;
+    }).addCase(removeCategory.fulfilled, (state) => {
+      state.deleteLoading = false;
+    }).addCase(removeCategory.rejected, (state) => {
+      state.deleteLoading = false;
+    });
+
   },
   selectors: {
     selectCategoryIsFetching: (state) => state.isFetching,
     selectCategoryIsCreating: (state) => state.isCreating,
     selectCategory: (state) => state.item,
+    selectDeleteCategory: (state) => state.deleteLoading,
   }
 });
 
@@ -48,5 +59,6 @@ export const categoryReducer = categorySlice.reducer;
 export const {
   selectCategory,
   selectCategoryIsCreating,
-  selectCategoryIsFetching
+  selectCategoryIsFetching,
+  selectDeleteCategory,
 } = categorySlice.selectors;

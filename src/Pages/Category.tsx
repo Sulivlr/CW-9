@@ -1,17 +1,25 @@
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {useEffect} from 'react';
-import {fetchCategory} from '../store/categoryThunk';
-import {selectCategory, selectCategoryIsFetching} from '../store/categorySlice';
+import {fetchCategory, removeCategory} from '../store/categoryThunk';
+import {selectCategory, selectCategoryIsFetching, selectDeleteCategory} from '../store/categorySlice';
 import Spinner from '../components/Spinner/Spinner';
 
 const Category = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectCategory);
   const isFetching = useAppSelector(selectCategoryIsFetching);
+  const isDeleting = useAppSelector(selectDeleteCategory);
   const navigate = useNavigate();
   const formClick = () => {
     navigate('/form');
+  };
+
+  const onRemove = async (categoryId: string) => {
+    if (window.confirm('Are you sure about deleting?')) {
+      await dispatch(removeCategory(categoryId));
+      await dispatch(fetchCategory());
+    }
   };
 
   useEffect(() => {
@@ -31,7 +39,10 @@ const Category = () => {
             <span>{category.name}</span>
             <strong>{category.type}</strong>
             <button className="btn btn-primary">Edit</button>
-            <button className="btn btn-danger">Delete</button>
+            <button onClick={() => onRemove(category.id)} disabled={isDeleting === category.id} className="btn btn-danger">
+              {isDeleting === category.id ? <Spinner/> : null}
+              Delete
+            </button>
           </div>
         ))}
       </div>

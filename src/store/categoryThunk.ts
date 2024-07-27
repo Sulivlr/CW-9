@@ -23,3 +23,10 @@ export const fetchCategory = createAsyncThunk<Category[], void, {state: RootStat
     }));
   }
 );
+
+export const removeCategory = createAsyncThunk<void, string>(
+  'categories/delete',
+  async (categoryId) => {
+    await axiosApi.delete(`/categories/${categoryId}.json`);
+  },
+);

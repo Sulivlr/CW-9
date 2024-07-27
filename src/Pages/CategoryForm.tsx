@@ -14,10 +14,10 @@ const CategoryForm = () => {
   const isCreating = useAppSelector(selectCategoryIsCreating);
   const [category, setCategory] = useState<ApiCategory>({
     name: '',
-    type: 'expense' || 'income',
+    type: 'expense',
   });
 
-  const onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFieldChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> ) => {
     const { name, value } = e.target;
     setCategory((prevState) => ({
       ...prevState,
@@ -53,19 +53,21 @@ const CategoryForm = () => {
         />
       </div>
       <div className="form-group mt-2">
-        <label htmlFor="CategoryType">Type</label>
-        <input
+        <label htmlFor="type">Type</label>
+        <select
           required
-          type="text"
-          name="CategoryType"
+          name="type"
           value={category.type}
           onChange={onFieldChange}
-          id="CategoryType"
+          id="type"
           className="form-control"
-        />
+        >
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
       </div>
       <div className="mt-3">
-      <button className="btn btn-primary">Edit</button>
+        <button className="btn btn-primary">Edit</button>
       <button type="submit" disabled={isCreating} className="btn btn-success ms-3">
         {isCreating && (<Spinner/>)} Create
       </button>

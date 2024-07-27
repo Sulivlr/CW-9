@@ -1,8 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {ApiTransaction, ApiTransactions, fetchResult, Transaction} from '../types';
+import {ApiTransaction, ApiTransactions, fetchResult} from '../types';
 import {RootState} from '../app/store';
 import axiosApi from '../axiosApi';
-import {fetchCategory} from './categoryThunk';
 
 export const createTransaction = createAsyncThunk<void, ApiTransaction, { state: RootState }>(
   'transactions/create',
