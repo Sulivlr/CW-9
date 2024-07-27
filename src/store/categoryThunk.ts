@@ -24,9 +24,13 @@ export const fetchCategory = createAsyncThunk<Category[], void, {state: RootStat
   }
 );
 
-export const removeCategory = createAsyncThunk<void, string>(
+export const removeCategory = createAsyncThunk<void, string, { rejectValue: string }>(
   'categories/delete',
-  async (categoryId) => {
+  async (categoryId,{rejectWithValue}) => {
+    try {
     await axiosApi.delete(`/categories/${categoryId}.json`);
+    } catch (error) {
+      return rejectWithValue('cannot delete category');
+    }
   },
 );
