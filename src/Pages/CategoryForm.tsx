@@ -19,7 +19,10 @@ const CategoryForm = () => {
 
   const onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCategory((prevState) => ({ ...prevState, [name]: value }));
+    setCategory((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   const onSubmit = async (e: React.FormEvent) => {
