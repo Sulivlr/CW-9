@@ -14,3 +14,20 @@ export interface ApiCategory {
 export interface ApiCategoryList {
   [id: string]: ApiCategory;
 }
+
+export interface Transaction {
+  id: string;
+  category: Category;
+  createdAt: string;
+  amount: number;
+}
+
+export interface ApiTransaction {
+  id: string;
+  amount: number;
+  createdAt: string;
+}
+
+export interface ApiTransactions {
+  [id: string]: ApiTransaction;
+}

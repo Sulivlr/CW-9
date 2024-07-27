@@ -36,7 +36,7 @@ const Category = () => {
         ))}
       </div>
     </div>
-  )
+  );
 };
 
 export default Category;
