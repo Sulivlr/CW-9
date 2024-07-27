@@ -10,7 +10,7 @@ const Appbar: React.FC = () => {
         </span>
         <ul className="navbar-nav mr-auto flex-row flex-nowrap gap-2">
           <li className="nav-item">
-            <NavLink to="/categories" className="nav-link">Categories</NavLink>
+            <NavLink to="/category" className="nav-link">Categories</NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/modal" className="nav-link">Add</NavLink>

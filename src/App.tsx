@@ -1,9 +1,9 @@
 import Appbar from './components/AppBar/AppBar';
 import {Route, Routes} from 'react-router-dom';
-import Categories from './Pages/Categories';
 import Tracker from './Pages/Tracker';
 import AddingModal from './Pages/AddingModal';
-import CategoriesForm from './Pages/CategoriesForm';
+import CategoryForm from './Pages/CategoryForm';
+import Category from './Pages/Category';
 
 const App = () => {
 
@@ -15,9 +15,9 @@ const App = () => {
       <main className="container mt-2">
         <Routes>
           <Route path="/" element={<Tracker />} />
-          <Route path="/categories" element={<Categories/>} />
+          <Route path="/category" element={<Category/>} />
           <Route path="/modal" element={<AddingModal/>} />
-          <Route path="/form" element={<CategoriesForm/>} />
+          <Route path="/form" element={<CategoryForm/>} />
           <Route path="*" element={<h1>Page Doesn't Exist</h1>} />
         </Routes>
       </main>

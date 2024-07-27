@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 
-const Categories = () => {
+const Category = () => {
 
   const navigate = useNavigate();
   const formClick = () => {
@@ -26,4 +26,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Category;

@@ -1,23 +1,37 @@
 import React, {useState} from 'react';
+import {ApiCategory} from '../types';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {selectCategoryIsCreating} from '../store/categorySlice';
+import {createCategory} from '../store/categoryThunk';
+import {toast} from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
+import Spinner from '../components/Spinner/Spinner';
 
 
-const CategoriesForm = () => {
-
-  const [category, setCategory] = useState({
+const CategoryForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isCreating = useAppSelector(selectCategoryIsCreating);
+  const [category, setCategory] = useState<ApiCategory>({
     name: '',
-    CategoryType: '',
+    type: 'expense' || 'income',
   });
 
   const onFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCategory((prevState) => ({ ...prevState, [name]: value }));
-  }
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
   };
 
-  console.log(category)
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await dispatch(createCategory({...category})).unwrap();
+      navigate('/category');
+      toast.success('Category created');
+    } catch (e) {
+      toast.error('Coudnt create a category');
+    }
+  };
 
 
   return (
@@ -41,7 +55,7 @@ const CategoriesForm = () => {
           required
           type="text"
           name="CategoryType"
-          value={category.CategoryType}
+          value={category.type}
           onChange={onFieldChange}
           id="CategoryType"
           className="form-control"
@@ -49,10 +63,12 @@ const CategoriesForm = () => {
       </div>
       <div className="mt-3">
       <button className="btn btn-primary">Edit</button>
-      <button type="submit" className="btn btn-success ms-3">Create</button>
+      <button type="submit" disabled={isCreating} className="btn btn-success ms-3">
+        {isCreating && (<Spinner/>)} Create
+      </button>
       </div>
     </form>
   );
 };
 
-export default CategoriesForm;
+export default CategoryForm;
