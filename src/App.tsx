@@ -3,6 +3,7 @@ import {Route, Routes} from 'react-router-dom';
 import Categories from './Pages/Categories';
 import Tracker from './Pages/Tracker';
 import AddingModal from './Pages/AddingModal';
+import CategoriesForm from './Pages/CategoriesForm';
 
 const App = () => {
 
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="/" element={<Tracker />} />
           <Route path="/categories" element={<Categories/>} />
           <Route path="/modal" element={<AddingModal/>} />
+          <Route path="/form" element={<CategoriesForm/>} />
           <Route path="*" element={<h1>Page Doesn't Exist</h1>} />
         </Routes>
       </main>

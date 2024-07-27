@@ -1,10 +1,17 @@
+import {useNavigate} from 'react-router-dom';
 
 const Categories = () => {
+
+  const navigate = useNavigate();
+  const formClick = () => {
+    navigate('/form');
+  } ;
+
   return (
     <div>
       <div className="d-flex mt-3 justify-content-between">
       <h2>Categories</h2>
-        <button className="btn btn-success">Add</button>
+        <button onClick={formClick} className="btn btn-success">Add</button>
       </div>
       <div className="card-body ">
         <div className="card d-flex flex-row justify-content-between align-items-center p-4 mt-4">
