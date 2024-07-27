@@ -22,6 +22,11 @@ export interface Transaction {
   amount: number;
 }
 
+export interface fetchResult {
+  transactions: Transaction[];
+  total: number;
+}
+
 export interface ApiTransaction {
   id: string;
   amount: number;

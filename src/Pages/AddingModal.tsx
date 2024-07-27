@@ -3,6 +3,7 @@ import {selectCategory} from '../store/categorySlice';
 import {closeModal, selectModalOpen} from '../store/transactionSlice';
 import React, {useEffect, useState} from 'react';
 import {fetchCategory} from '../store/categoryThunk';
+import {createTransaction} from '../store/transactionThunk';
 
 const AddingModal = () => {
 
@@ -29,7 +30,7 @@ const AddingModal = () => {
 
   const close = () => {
     dispatch(closeModal());
-  }
+  };
 
   useEffect(() => {
     setForm(prevState => ({
@@ -43,12 +44,18 @@ const AddingModal = () => {
     setForm(prevState => ({
       ...prevState,
       [name]: value
-    }))
-  }
+    }));
+  };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit =  async (e: React.FormEvent) => {
     e.preventDefault();
-  }
+    await dispatch(createTransaction({
+      id: form.id,
+      amount: parseFloat(form.amount),
+      createdAt: (new Date().toISOString()),
+    }));
+    close();
+  };
 
   return (
     <>
@@ -80,6 +87,7 @@ const AddingModal = () => {
                       onChange={onFieldChange}
                       required
               >
+                <option value="">Select Category</option>
                 {categoryType.map(category => (
                   <option key={category.id}
                           value={category.id}

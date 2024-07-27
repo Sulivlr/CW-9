@@ -30,6 +30,6 @@ export const transactionSlice = createSlice({
 });
 
 export const { openModal, closeModal } = transactionSlice.actions;
-export const transactionReducer = transactionSlice.reducer
+export const transactionReducer = transactionSlice.reducer;
 export const {selectModalOpen}
   = transactionSlice.selectors;
